@@ -1,10 +1,12 @@
-pipeline { 
-    agent any 
+pipeline {
+    agent any
+
     stages {
-        stage('Build') { 
-            steps { 
-                echo "Build_Adservice"
-                docker build -t adservice:v1.0 src/adservice/.
+        stage('Build') {
+            steps {
+                script {
+                    sh 'docker build -t adservice:v1.0 src/adservice'
+                }
             }
         }
     }

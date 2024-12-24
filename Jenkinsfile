@@ -5,7 +5,10 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh '/Users/nitin/Desktop/Devops/microservice/docker-build.sh'
+                    sh '''
+                    docker build -t adservice:v1.0 src/adservice/.
+                    '''
+
                 }
             }
         }

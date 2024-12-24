@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
-                echo 'Build'
+                echo "Build_Adservice"
+                docker build src/adservice/Dockerfile
             }
         }
     }

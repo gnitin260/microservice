@@ -4,7 +4,9 @@ pipeline {
         stage('Build') { 
             steps { 
                 echo "Build_Adservice"
-                docker build -t adservice:v1.0 src/adservice/Dockerfile
+                cd /src/adservice/
+                docker build -t adservice:v1.0 src/adservice/.    
+                docker build -t adservice:v1.0 src/cartservice/. 
             }
         }
     }

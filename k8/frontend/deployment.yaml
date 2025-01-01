@@ -12,11 +12,14 @@ spec:
         app: front-end
     spec:
       containers:
-      - name: frontend
-        image: "test:5001/frontend:v1.0"
+      - name: front-end
+        image: "gnitin260/frontend:v1.0"
         resources:
-          limits:
+          requests:
             memory: "128Mi"
             cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "1000m"
         ports:
         - containerPort: 8080

@@ -29,18 +29,18 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker push -t gnitin260/adservice:v1.0 src/adservice/.
-                    docker push -t gnitin260/cartservice:v1.0 src/cartservice/src/.
-                    docker push -t gnitin260/checkoutservice:v1.0 src/checkoutservice/.
-                    docker push -t gnitin260/currencyservice:v1.0 src/currencyservice/.
-                    docker push -t gnitin260/emailservice:v1.0 src/emailservice/.
-                    docker push -t gnitin260/frontend:v1.0 src/frontend/.
-                    docker push -t gnitin260/loadgenerator:v1.0 src/loadgenerator/.
-                    docker push -t gnitin260/paymentservice:v1.0 src/paymentservice/.
-                    docker push -t gnitin260/productcatalogservice:v1.0 src/productcatalogservice/.
-                    docker push -t gnitin260/recommendationservice:v1.0 src/recommendationservice/.
-                    docker push -t gnitin260/shippingservice:v1.0 src/shippingservice/.
-                    docker push -t gnitin260/shoppingassistantservice:v1.0 src/shoppingassistantservice/.
+                    docker push gnitin260/adservice:v1.0 src/adservice/.
+                    docker push gnitin260/cartservice:v1.0 src/cartservice/src/.
+                    docker push gnitin260/checkoutservice:v1.0 src/checkoutservice/.
+                    docker push gnitin260/currencyservice:v1.0 src/currencyservice/.
+                    docker push gnitin260/emailservice:v1.0 src/emailservice/.
+                    docker push gnitin260/frontend:v1.0 src/frontend/.
+                    docker push gnitin260/loadgenerator:v1.0 src/loadgenerator/.
+                    docker push gnitin260/paymentservice:v1.0 src/paymentservice/.
+                    docker push gnitin260/productcatalogservice:v1.0 src/productcatalogservice/.
+                    docker push gnitin260/recommendationservice:v1.0 src/recommendationservice/.
+                    docker push gnitin260/shippingservice:v1.0 src/shippingservice/.
+                    docker push gnitin260/shoppingassistantservice:v1.0 src/shoppingassistantservice/.
                     '''
 
                 }

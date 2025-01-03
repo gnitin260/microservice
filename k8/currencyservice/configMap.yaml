@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: currency-configmap
+data:
+  PORT: "7000"
+  DISABLE_PROFILER: "1"

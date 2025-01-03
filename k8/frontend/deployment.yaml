@@ -1,7 +1,62 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: front-end
+# spec:
+#   selector:
+#     matchLabels:
+#       app: front-end
+#   template:
+#     metadata:
+#       labels:
+#         app: front-end
+#       annotations:
+#         sidecar.istio.io/rewriteAppHTTPProbers: "true"
+#     spec:
+#       serviceAccountName: fron-tend
+#       securityContext:
+#         fsGroup: 1000
+#         runAsGroup: 1000
+#         runAsNonRoot: true
+#         runAsUser: 1000
+#       containers:
+#       - name: front-end
+#         image: "gnitin260/frontend:v1.0"
+#         resources:
+#           requests:
+#             memory: "128Mi"
+#             cpu: "500m"
+#           limits:
+#             memory: "256Mi"
+#             cpu: "1000m"
+#         ports:
+#         - containerPort: 8080
+#         readinessProbe:
+#             initialDelaySeconds: 10
+#             httpGet:
+#               path: "/_healthz"
+#               port: 8080
+#               httpHeaders:
+#               - name: "Cookie"
+#                 value: "shop_session-id=x-readiness-probe"
+#         livenessProbe:
+#             initialDelaySeconds: 10
+#             httpGet:
+#               path: "/_healthz"
+#               port: 8080
+#               httpHeaders:
+#               - name: "Cookie"
+#                 value: "shop_session-id=x-liveness-probe"
+#         env: 
+#         - name: PORT
+#           value: "8080"
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: front-end
+  labels:
+    app: front-end
 spec:
   selector:
     matchLabels:
@@ -10,16 +65,55 @@ spec:
     metadata:
       labels:
         app: front-end
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
+      serviceAccountName: front-end
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
-      - name: front-end
-        image: "gnitin260/frontend:v1.0"
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "500m"
-          limits:
-            memory: "256Mi"
-            cpu: "1000m"
-        ports:
-        - containerPort: 8080
+        - name: server
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          image: gnitin260/frontend:v1.0
+          ports:
+          - containerPort: 8080
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: "/_healthz"
+              port: 8080
+              httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-readiness-probe"
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: "/_healthz"
+              port: 8080
+              httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-liveness-probe"
+          # env:
+          # - name: PORT
+          #   value: "8080"
+          # - name: ENABLE_PROFILER
+          #   value: "0"
+          envFrom:
+          - configMapRef:
+              name: front-end-config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi

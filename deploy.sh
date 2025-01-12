@@ -10,6 +10,12 @@ kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/currencyservice/con
 kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/catalog/deployment.yaml -n devops
 kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/catalog/service.yaml -n devops
 kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/catalog/serviceaccount.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/adservice/deployment.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/adservice/service.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/adservice/serviceaccount.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/cartservice/deployment.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/cartservice/service.yaml -n devops
+kubectl apply -f /Users/nitin/Desktop/Devops/microservice/k8/cartservice/serviceaccount.yaml -n devops
 kubectl get pods -n devops
 kubectl get services -n devops
 kubectl get serviceaccount -n devops

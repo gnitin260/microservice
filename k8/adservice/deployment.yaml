@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ad-service
   labels:
-   app: ad-service
+    app: ad-service
 spec:
   selector:
     matchLabels:
@@ -26,10 +26,10 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-              - ALL
+            - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: gnitin260/adservice:v1.0
+        image: "us-central1-docker.pkg.dev/google-samples/microservices-demo/adservice:v0.10.2"
         resources:
           limits:
             memory: "128Mi"
@@ -39,7 +39,7 @@ spec:
         env:
         - name: PORT
           value: "9555"
-        readinessProbe: 
+        readinessProbe:
           initialDelaySeconds: 20
           periodSeconds: 15
           grpc:

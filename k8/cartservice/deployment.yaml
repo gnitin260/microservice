@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cart-service
   labels:
-   app: cart-service
+    app: cart-service
 spec:
   selector:
     matchLabels:
@@ -26,10 +26,10 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-              - ALL
+            - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: "gnitin260/cartservice:v1.0"
+        image: "us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice:v0.10.2"
         resources:
           limits:
             memory: "128Mi"

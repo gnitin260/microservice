@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end
-  namespace: devops
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: front-end
+    app: {{ .Values.appName }}
 spec:
   selector:
     matchLabels:
-      app: front-end
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: front-end
+        app: {{ .Values.appName }}
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
-      serviceAccountName: front-end
+      serviceAccountName: {{ .Values.serviceAccount }}
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -31,7 +31,7 @@ spec:
             - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: "us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend:v0.10.2"
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -57,7 +57,7 @@ spec:
         #   value: "0"
         envFrom:
         - configMapRef:
-            name: front-end-config
+            name: {{ .Values.configMap.name }}
         resources:
           requests:
             cpu: 100m

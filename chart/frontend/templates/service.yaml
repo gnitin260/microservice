@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end
-  namespace: devops
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
   labels: 
-    app: front-end
+    app: {{ .Values.appName }}
 spec:
   type: LoadBalancer
   selector:
-    app: front-end
+    app: {{ .Values.appName }}
   ports:
   - name: http
     port: 80
@@ -18,14 +18,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-intenal
-  namespace: devops
+  name: {{ .Values.appNameInternal }}
+  namespace: {{ .Values.namespace }}
   labels: 
-    app: front-end
+    app: {{ .Values.appNameInternal }}
 spec:
   type: ClusterIP
   selector:
-    app: front-end
+    app: {{ .Values.appNameInternal }}
   ports:
   - name: http
     port: 80

@@ -19,6 +19,7 @@ deployment:
 
 service:
   serviceName: front-end
+  serviceNameInternal: front-end-internal
   port: 80
   targetPort: 8080
 

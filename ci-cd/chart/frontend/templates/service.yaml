@@ -1,0 +1,36 @@
+{{- with .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .serviceName }}
+  namespace: {{ $.Values.namespace }}
+  labels: 
+    app: {{ .serviceName }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ .serviceName }}
+  ports:
+  - name: http
+    port: {{ .port }}
+    targetPort: {{ .targetPort }}
+{{- end -}}
+
+---
+{{- with .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .serviceNameInternal }}
+  namespace: {{ $.Values.namespace }}
+  labels: 
+    app: {{ .serviceName }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .serviceName }}
+  ports:
+  - name: http
+    port: {{ .port }}
+    targetPort: {{ .targetPort }}
+{{- end -}}

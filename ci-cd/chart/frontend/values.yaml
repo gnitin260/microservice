@@ -1,10 +1,26 @@
-appName: front-end
-appNameInternal: front-end-external
 namespace: devops
-serviceAccount: front-end
-image:
-  name: us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend
-  tag: v0.10.2
+
+deployment:
+  appName: front-end
+  replicas: 2
+  serviceAccount: front-end
+  containerName: fornt-end
+  containerPort: 8080
+  image:
+    name: us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend
+    tag: v0.10.2
+  probe:
+    initDelaySeconds: 10
+    probePort: 8080
+    httpHeaders: 
+      name: "Cookie"
+      headerValueReadiness: "shop_session-id=x-readiness-probe"
+      headerValueLiveness: "shop_session-id=x-liveness-probe"
+
+service:
+  serviceName: front-end
+  port: 80
+  targetPort: 8080
 
 configMap:
   name: front-end-config

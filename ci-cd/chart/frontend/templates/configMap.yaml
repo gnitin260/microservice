@@ -1,0 +1,21 @@
+{{- with .Values.configMap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace }}
+data:
+  # key: value
+  {{- with .data }}
+  PORT: "{{ .PORT }}"
+  PRODUCT_CATALOG_SERVICE_ADDR: {{ .PRODUCT_CATALOG_SERVICE_ADDR }}
+  CURRENCY_SERVICE_ADDR: {{ .CURRENCY_SERVICE_ADDR }}
+  CART_SERVICE_ADDR: {{ .CART_SERVICE_ADDR }}
+  RECOMMENDATION_SERVICE_ADDR: {{ .RECOMMENDATION_SERVICE_ADDR }}
+  SHIPPING_SERVICE_ADDR: {{ .SHIPPING_SERVICE_ADDR }}
+  CHECKOUT_SERVICE_ADDR: {{ .CHECKOUT_SERVICE_ADDR }}
+  AD_SERVICE_ADDR: {{ .AD_SERVICE_ADDR }}
+  SHOPPING_ASSISTANT_SERVICE_ADDR: {{ .SHOPPING_ASSISTANT_SERVICE_ADDR }}
+  ENABLE_PROFILER: "{{ .ENABLE_PROFILER }}"
+  {{- end -}}
+{{- end -}}

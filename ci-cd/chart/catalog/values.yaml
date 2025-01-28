@@ -1,0 +1,25 @@
+namespace: devops
+
+deployment:
+  appName: product-catalog
+  serviceAccount: product-catalog
+  container:
+    containerName: product-catalog
+    containerPort: 3550
+    image:
+      name: us-central1-docker.pkg.dev/google-samples/microservices-demo/productcatalogservice
+      tag: v0.10.2
+    probe:
+      probePort: 3500
+
+service:
+  serviceName: product-catalog
+  type: ClusterIP
+  port: "3550"
+  targetPort: "3550"
+
+configmap:
+  configMapName: product-catalog-config
+  data:
+    port: "3550"
+    disableProfiler: "1"

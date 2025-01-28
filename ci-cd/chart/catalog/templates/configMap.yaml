@@ -1,0 +1,12 @@
+{{- with .Values.configmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .configMapName }}
+  namespace: {{ $.Values.namespace }}
+data:
+  {{- with .data }}
+  PORT: {{ .port | quote }}
+  DISABLE_PROFILER: {{ .disableProfiler | quote }} 
+  {{- end -}}
+{{- end -}}

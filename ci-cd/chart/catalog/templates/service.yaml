@@ -1,0 +1,17 @@
+{{- with .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .serviceName }}
+  namespace: {{ $.Values.namespace }}
+  labels: 
+    app: {{ .serviceName }}
+spec:
+  type: {{ .type }}
+  selector:
+    app: {{ .serviceName }}
+  ports:
+  - name: grcp
+    port: {{ .port }}
+    targetPort: {{ .targetPort }}
+{{- end -}}

@@ -2,7 +2,7 @@ namespace: devops
 
 deployment:
   appName: front-end
-  replicas: 2
+  replicas: 1
   serviceAccount: front-end
   containerName: fornt-end
   containerPort: 8080
@@ -12,7 +12,7 @@ deployment:
   probe:
     initDelaySeconds: 10
     probePort: 8080
-    httpHeaders: 
+    httpHeaders:
       name: "Cookie"
       headerValueReadiness: "shop_session-id=x-readiness-probe"
       headerValueLiveness: "shop_session-id=x-liveness-probe"
@@ -26,13 +26,13 @@ service:
 configMap:
   name: front-end-config
   data:
-      PORT: "8080"
-      PRODUCT_CATALOG_SERVICE_ADDR: productcatalog-service:3550
-      CURRENCY_SERVICE_ADDR: currency-service:7000
-      CART_SERVICE_ADDR: cartservice:7070
-      RECOMMENDATION_SERVICE_ADDR: recommendationservice:8080
-      SHIPPING_SERVICE_ADDR: shippingservice:50051
-      CHECKOUT_SERVICE_ADDR: checkoutservice:5050
-      AD_SERVICE_ADDR: adservice:9555
-      SHOPPING_ASSISTANT_SERVICE_ADDR: shoppingassistantservice:80
-      ENABLE_PROFILER: "0"
+    PORT: "8080"
+    PRODUCT_CATALOG_SERVICE_ADDR: productcatalog-service:3550
+    CURRENCY_SERVICE_ADDR: currency-service:7000
+    CART_SERVICE_ADDR: cartservice:7070
+    RECOMMENDATION_SERVICE_ADDR: recommendationservice:8080
+    SHIPPING_SERVICE_ADDR: shippingservice:50051
+    CHECKOUT_SERVICE_ADDR: checkoutservice:5050
+    AD_SERVICE_ADDR: adservice:9555
+    SHOPPING_ASSISTANT_SERVICE_ADDR: shoppingassistantservice:80
+    ENABLE_PROFILER: "0"

@@ -1,0 +1,16 @@
+{{- with .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .serviceName }}
+  labels:
+    app:  {{ .serviceName }}
+spec:
+  selector:
+    app:  {{ .serviceName }}
+  ports:
+  - name: grpc
+    port: {{ .port }}  
+    targetPort: {{ .targetPort }}
+  type: {{ .type }}
+{{- end -}}

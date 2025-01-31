@@ -22,5 +22,5 @@ service:
 configMap:
   name: currency-configmap
   data:
-    port: "7000"
-    disable_profiler: "1"
+    port: 7000
+    disable_profiler: 1

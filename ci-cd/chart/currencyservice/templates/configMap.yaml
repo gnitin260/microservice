@@ -4,8 +4,8 @@ kind: ConfigMap
 metadata:
   name: {{ .name }}
 data:
-{{- with .data }}
-  PORT: {{ .port }}
-  DISABLE_PROFILER: {{ .disable_profiler }}
-{{- end -}}
+  {{- with .data }}
+  PORT: "{{ .port }}"
+  DISABLE_PROFILER: "{{ .disable_profiler }}"
+  {{- end -}}
 {{- end -}}

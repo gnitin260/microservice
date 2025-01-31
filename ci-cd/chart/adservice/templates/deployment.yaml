@@ -1,0 +1,57 @@
+{{- with .Values.deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .appName }}
+  labels:
+    app: {{ .appName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .appName }}
+    spec:
+      serviceAccountName: {{ .containerName }}
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      {{- with .container }}
+      - name: {{ .containerName }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: "{{ .image.name }}:{{ .image.tag }}"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: {{ .containerPort }}
+        env:
+        - name: PORT
+          value: "9555"
+        {{- with .probe }}
+        readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          grpc:
+            port: {{ .probePort }}
+        livenessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          grpc:
+            port: {{ .probePort }} 
+        {{- end -}}
+      {{- end -}}
+{{- end -}}

@@ -1,0 +1,25 @@
+namespace: devops
+
+deployment:
+  appName: cart-service
+  serviceAccount: cart-service
+  container:
+    containerName: cart-service
+    containerPort: 7070
+    image:
+      name: us-central1-docker.pkg.dev/google-samples/microservices-demo/cartservice
+      tag: v0.10.2
+    probe:
+      probePort: 7070
+
+service:
+  serviceName: cart-service
+  type: ClusterIP
+  port: 7070
+  targetPort: 9555
+
+# configmap:
+#   configMapName: cart-service-config
+#   data:
+#     port: 7070
+#     disableProfiler: "1"
